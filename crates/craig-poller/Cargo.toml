@@ -1,0 +1,18 @@
+[package]
+name = "craig-poller"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+anyhow.workspace = true
+thiserror.workspace = true
+tracing.workspace = true
+tokio.workspace = true
+reqwest.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+chrono.workspace = true
+walkdir.workspace = true
+zip = "2"
+url = "2"
+regex = "1"

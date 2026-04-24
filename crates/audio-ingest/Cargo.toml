@@ -1,0 +1,13 @@
+[package]
+name = "audio-ingest"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+anyhow.workspace = true
+thiserror.workspace = true
+tracing.workspace = true
+serde.workspace = true
+hound = "3.5"         # WAV read/write
+symphonia = { version = "0.5", features = ["flac", "mp3", "ogg", "isomp4", "aac"] }  # multi-format decode
+rubato = "0.15"       # resample to 16kHz mono for whisper

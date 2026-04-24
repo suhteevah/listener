@@ -1,0 +1,19 @@
+[package]
+name = "whisper-local"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+anyhow.workspace = true
+thiserror.workspace = true
+tracing.workspace = true
+serde.workspace = true
+audio-ingest.workspace = true
+whisper-rs = { version = "0.14", default-features = false }
+
+[features]
+default = []
+# enable once cnc P100 cables land (24h from 2026-04-23); gated so dev box can
+# still build + run with CPU inference without CUDA.
+cuda = ["whisper-rs/cuda"]
+metal = ["whisper-rs/metal"]

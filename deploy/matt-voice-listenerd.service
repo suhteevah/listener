@@ -1,0 +1,34 @@
+[Unit]
+Description=matt-voice listenerd — Craig inbox → whisper → staging JSONL
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=matt
+Group=matt
+WorkingDirectory=/opt/matt-voice
+Environment="RUST_LOG=info,listenerd=debug,audio_ingest=debug"
+Environment="MATT_VOICE_ROOT=/opt/matt-voice"
+Environment="MATT_VOICE_WHISPER_MODEL=/opt/matt-voice/models/ggml-large-v3.bin"
+ExecStart=/opt/matt-voice/bin/listenerd
+Restart=on-failure
+RestartSec=5s
+StandardOutput=journal
+StandardError=journal
+
+# Hardening
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+ReadWritePaths=/opt/matt-voice
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+LockPersonality=yes
+MemoryDenyWriteExecute=no  # CUDA needs JIT — leave off on cnc once P100 lands
+
+[Install]
+WantedBy=multi-user.target
